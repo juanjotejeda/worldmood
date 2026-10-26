@@ -1,2 +1,28 @@
+# Dependencies
+node_modules/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Build / coverage
+dist/
+coverage/
+
+# Model cache (transformers.js and others)
+.cache/
+models/
+model-cache/
+
+# Local-only labeled data (contains post text)
+test/fixtures/labeled_posts.csv
+
+# Tooling / OS
 graft/
 .DS_Store
