@@ -4,7 +4,7 @@ Read this whole file before writing code. Build in the task order below. Stop at
 
 ## What you are building
 
-A Node.js service on Railway that:
+A Node.js service (app host TBD) with Aiven Postgres that:
 
 1. Streams public Bluesky posts from Jetstream.
 2. Keeps only first-person feeling statements in English, German and Spanish.
@@ -32,7 +32,7 @@ Two slices: `global` (en + de + es) and `de` (German-language posts only, also c
 - `node-cron` for scheduled jobs.
 - `fastify` for the API.
 - `@anthropic-ai/sdk` for the daily sentence.
-- Deploy target: Railway, one service, Railway Postgres plugin.
+- Deploy target: one Node service on an app host (TBD; Railway, Fly.io, Render or a VPS, 1 GB+ RAM) and Aiven Postgres (SSL required: `sslmode=require`, CA cert from the Aiven console).
 
 ## Environment variables
 
@@ -218,8 +218,8 @@ Shares, z-scores, label, terms, Haiku call. Add `daily.test.js` with synthetic d
 Checkpoint: run the job manually against test data and show the stored row.
 
 ### Task 6: Deploy
-Railway service with Postgres plugin. `npm start` runs everything. Add a README with env setup and a Railway section.
-Checkpoint: health endpoint live on Railway for 24 hours with `stream_connected = true` above 95% of checks.
+Node service on the chosen app host, connected to Aiven Postgres. `npm start` runs everything. Add a README with env setup, an Aiven section and a section for the app host.
+Checkpoint: health endpoint live on the app host for 24 hours with `stream_connected = true` above 95% of checks.
 
 ## Out of scope
 
@@ -227,8 +227,8 @@ Market fear, Wikipedia attention, disaster feeds, X data, geolocation, a public 
 
 ## Open decisions (defaults in brackets; ask me if a task depends on one)
 
-- Database: Railway Postgres [default] or existing Supabase.
-- Separate Railway service [default] or inside the dashboard backend.
+- Database: Aiven Postgres [decided 2026-10-26, Railway was down].
+- App host: separate service [default] on Railway, Fly.io, Render or a VPS (still to choose), or inside the dashboard backend.
 - Widget frontend contract: ask me for the dashboard repo before Task 4 so the response shape matches its widget pattern.
 
 ## Resolved decisions
