@@ -132,7 +132,7 @@ Keep a post if its first matching language is en, de or es and the text matches 
 
 | Language | Keep (case-insensitive, word boundaries) | Drop |
 | --- | --- | --- |
-| en | `i feel`, `i'm feeling`, `im feeling`, `i am feeling`, `feeling so` | `feel free` |
+| en | `i feel`, `i'm feeling`, `im feeling`, `i am feeling`, `feeling so` | `feel free`, `i feel like` |
 | de | `ich fühle mich`, `fühle mich`, `mir geht es`, `mir geht's`, `mir gehts` | `fühlt sich an wie` |
 | es | `me siento`, `me estoy sintiendo` | `siento que` |
 
@@ -230,3 +230,13 @@ Market fear, Wikipedia attention, disaster feeds, X data, geolocation, a public 
 - Database: Railway Postgres [default] or existing Supabase.
 - Separate Railway service [default] or inside the dashboard backend.
 - Widget frontend contract: ask me for the dashboard repo before Task 4 so the response shape matches its widget pattern.
+
+## Resolved decisions
+
+- This file in the repo is the source of truth for the spec.
+- Plain JS with JSDoc. Tests use `node:test`; dev uses `node --watch`.
+- Bot guard salt: random per process, generated at boot, held in memory only. No env var.
+- Language: use the first entry in `commit.record.langs` that is en, de or es. If none, drop.
+- Hour buckets come from the event's `time_us`, not wall-clock arrival time. This keeps cursor replays in the right hour.
+- English drop list includes `i feel like` (usually an opinion, not a feeling).
+- Task 1 spike logs seen, kept and sampled per language every 5 minutes; hourly rates are extrapolated for the checkpoint.
